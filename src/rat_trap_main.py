@@ -14,13 +14,13 @@ wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 
 # get wifi SSD and password
-file = open("wifi.txt", "r")
+file = open(".data/wifi.txt", "r")
 ssid = file.readline().split()[0]
 pwd = file.readline()
 file.close()
 
 # get ifttt config
-file = open("ifttt.txt", "r")
+file = open(".data/ifttt.txt", "r")
 api_key = file.readline()
 file.close()
 
@@ -52,23 +52,7 @@ while running:
             hook = "something_wrong"
             v1 = "garage_trap"
             v2 = "wifi_fail"
-            trigger_ifttt("something_wrong", api_key, v1="garage_trap", v2="wifi_fail")
+            trigger_ifttt(hook, api_key, [v1, v2])
             running = False
             break
         
-        
-        
-        
-        
-
-applet = "test_trap"
-
-ts = rtc.datetime()
-ts = "%02d%02d%02d"%(ts[4:7])
-
-message = "https://maker.ifttt.com/trigger/" + applet + "/with/key/" + api_key
-
-print(message)
-print("trying post message")
-urequests.post(message)
-print("posted message??")
